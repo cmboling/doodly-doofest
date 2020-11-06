@@ -14,7 +14,7 @@ public class Blob {
     }
 
     public Blob(File file) throws java.net.MalformedURLException, java.io.IOException {
-        this.mimeType = file.toURL().openConnection().getContentType();
+        this.mimeType = file.toURI().toURL().openConnection().getContentType();
         this.base64EncodedData = Base64.getEncoder().encodeToString(FileUtils.readFileToByteArray(file));
     }
 
