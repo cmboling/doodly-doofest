@@ -7,7 +7,7 @@ updates:
     labels:
       - "triage-required"
     assignees:
-      - "ghas-test-user-1"
+      - "cmboling"
     reviewers:
       - "cmboling"
     commit-message:
