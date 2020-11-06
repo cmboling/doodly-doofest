@@ -1,0 +1,14 @@
+version: 2
+updates:
+  - package-ecosystem: "pip"
+    directory: "/authn-service"
+    schedule:
+      interval: "daily"
+    labels:
+      - "triage-required"
+    assignees:
+      - "ghas-test-user-1"
+    reviewers:
+      - "rvermeulen"
+    commit-message:
+      prefix: "pip"
