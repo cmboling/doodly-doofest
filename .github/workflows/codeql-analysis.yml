@@ -47,7 +47,8 @@ jobs:
         # By default, queries listed here will override any specified in a config file.
         # Prefix the list here with "+" to use these queries and those in the config file.
         queries: +security-and-quality
-          
+    
+    - if: matrix.language == 'java'  
     - name: Setup Java JDK
       uses: actions/setup-java@v1.4.3
       with:
