@@ -9,6 +9,6 @@ updates:
     assignees:
       - "ghas-test-user-1"
     reviewers:
-      - "rvermeulen"
+      - "cmboling"
     commit-message:
       prefix: "pip"
