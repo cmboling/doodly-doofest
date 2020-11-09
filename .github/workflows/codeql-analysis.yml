@@ -21,10 +21,6 @@ on:
   schedule:
     - cron: '23 0 * * 6'
 
-env:
-  LGTM_SRC: ${{ github.workspace }}
-  LGTM_HAHA: ${{ runner.temp }}
-  
 jobs:
   analyze:
     name: Analyze
@@ -39,7 +35,6 @@ jobs:
         # https://docs.github.com/en/github/finding-security-vulnerabilities-and-errors-in-your-code/configuring-code-scanning#overriding-automatic-language-detection
 
     steps:
-
     - name: Checkout repository
       uses: actions/checkout@v2
 
