@@ -40,6 +40,11 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
 
     @Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+	
+	if (!supports(authentication.getClass())) {
+            return null;
+        }
+
         logger.debug("Verifying key with secret '" + secret + "'");
         BearerTokenAuthenticationToken bearer = (BearerTokenAuthenticationToken) authentication;
 		try {
