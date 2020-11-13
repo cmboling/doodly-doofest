@@ -73,5 +73,3 @@ jobs:
     - env: 
         CODEQL_RAM: 5500
       uses: github/codeql-action/analyze@v1
-      with:
-        ram: 5200 
