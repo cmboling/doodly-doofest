@@ -576,7 +576,7 @@ Writing you own query is out of scope for this workshop, but in the next steps y
     **Hint** The `uses` key accepts repository relative paths.
 1. After the code scanning action has completed are there new security results?
 
-#### _Stretch Exercise 4: Code scanning automation_
+#### _Stretch Exercise 5: Code scanning automation_
 
 Like Dependabot our code scanning has a REST api that can be used to retrieve information or modify existing information.
 
