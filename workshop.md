@@ -520,7 +520,8 @@ from: codeql-go
 #### _Stretch Exercise 5: Adding a custom query_
 
 One of the strong suites of CodeQL is its high-level language QL that can be used to write your own queries.
-Writing you own query is out of scope for this workshop, but in the next steps you can see how to add one.
+_If you have experience with CodeQL and have come up with your own query so far, take this time to commit those changes and see if any alerts were produced._ 
+Regardless of experiencem, the next steps show you how to add one.
 
 1. Create the file `custom-queries/go/qlpack.yml` with the contents
 
