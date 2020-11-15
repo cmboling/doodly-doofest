@@ -22,7 +22,7 @@ public class JwtTest {
 				.setExpiration(new Date(2929, 11, 25))
 				.setIssuer("ghasuser@githubtest.com")
 				.claim("groups", new String[] { "user", "admin" })
-				// HMAC using SHA-256  and 48199327 base64 encoded
+				// 48199327 repeated n times to satisfy HS256 base64 encoded
                 .signWith(SignatureAlgorithm.HS256, "NDgxOTkzMjc0ODE5OTMyNzQ4MTk5MzI3NDgxOTkzMjc0ODE5OTMyNzQ4MTk5MzI3NDgxOTkzMjc0ODE5OTMyNzQ4MTk5MzI3NDgxOTkzMjc0ODE5OTMyNzQ4MTk5MzI3NDgxOTkzMjc0ODE5OTMyNzQ4MTk5MzI3NDgxOTkzMjc0ODE5OTMyNzQ4MTk5MzI3NDgxOTkzMjc0ODE5OTMyNzQ4MTk5MzI3NDgxOTkzMjc0ODE5OTMyNzQ4MTk5MzI3NDgxOTkzMjc=")
                 .compact();
 		return token;
