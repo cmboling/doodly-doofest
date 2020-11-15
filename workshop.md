@@ -81,7 +81,7 @@ When developing test cases it might be the case that secrets are introduced that
 3. How would you like to manage results from test files?
 
 #### Excluding files from secret scanning
-While we can close a detected secret as being used in a test we can also configure secret scanning to exclude files from being scanned.
+While we can close a detected secret as being used in a test, we can also configure secret scanning to exclude files from being scanned.
 
 1. Create the file `.github/secret_scanning.yml` if it doesn't already exist.
 2. Add a list of paths to exclude from secret scanning. You can use [filter patterns](https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-syntax-for-github-actions#filter-pattern-cheat-sheet) to specify paths.
@@ -112,14 +112,13 @@ While we can close a detected secret as being used in a test we can also configu
     ```
 
 #### Managing access to alerts
-Due to the nature of secrets the alerts are only visible to organization and repository administrators.
-
+Due to the nature of secrets, the alerts are only visible to organization and repository administrators.
 Access to other members and teams can be given in the `Security & analysis` setting.
 
 **Note:** The member or teams requires write privileges before access to alerts can be given.
 
-1. To enable this functionality we have to enable Dependabot alerts.
-2. In the access to alerts section add another team member or team to provide access to your repository alerts.
+1. To enable this functionality, we have to enable Dependabot alerts.
+2. In the access to alerts section, add another team member or team to provide access to your repository alerts.
 
 ## Dependabot
 
@@ -143,15 +142,15 @@ The dependency graph can be access in the `Insights` tab in your repository.
 
 #### Viewing and managing results
 
-After a few minutes the security tab will in the repository will indicate that there are new security alerts.
+After a few minutes, the security tab in the repository will indicate that there are new security alerts.
 
-**Note**: If this not the case we can trigger an analysis by updating `authn-service/requirements.txt`
+**Note**: If this not the case, we can trigger an analysis by updating `authn-service/requirements.txt`
 
 1. Go to the Dependabot alert section to view the detected dependency issues.
 
-For each Dependency alert we have the option to create a scurity update or to dismiss the alert with a reason.
+For each dependency alert, we have the option to create a scurity update or to dismiss the alert with a reason.
 
-2. For one of the alerts create a Dependency security update. If Dependabot can update the dependency automatically it will create a PR.
+2. For one of the alerts create a dependency security update. If Dependabot can update the dependency automatically, it will create a PR.
 3. For one of the alerts dimiss the alert.
 
 #### Enabling Dependabot security updates
@@ -164,7 +163,7 @@ After a few minutes multiple PRs will be created that will upgrade vulnerable de
 
 #### Configuring Dependabot security updates
 
-To successfully integrate the security updates into the SDLC it is possible to configure various aspects such as:
+To successfully integrate the security updates into the SDLC, it is possible to configure various aspects such as:
 
 - When security PRs are created.
 - What labels are assigned to enable filtering options.
@@ -186,7 +185,7 @@ To successfully integrate the security updates into the SDLC it is possible to c
     ```
 How would you know if the configuration cannot be satisfied?
 1. Add a non-existing label to the configuration.
-2. Trigger a new Dependabot security update by adding a vulnerable dependency to one of the projects
+2. Trigger a new dependabot security update by adding a vulnerable dependency to one of the projects
 
    For example, we can add the dependency `django-two-factor-auth==1.11` to `auth-service/requirements.txt`
 3. Look at the created PR to determine if the configuration is satisfied.
@@ -215,7 +214,7 @@ updates:
 
 ## Code scanning
 
-Code scanning enables developers to integrate security analysis tooling into their developing workflow. In this workshop we will focus on the CodeQL static analysis tooling provided by GitHub that helps developers detect common vulnerabilities and coding errors.
+Code scanning enables developers to integrate security analysis tooling into their developing workflow. In this workshop we will focus on the CodeQL static analysis tooling that helps developers detect common vulnerabilities and coding errors.
 
 ### _**Practical Exercise 2**_ 
 
@@ -354,7 +353,7 @@ However, you might want to change this behavior to:
 
 #### Adding your own code scanning suite to exclude rules
 
-Which queries are executed is determined by the code scanning suite for a target language.
+The queries that are executed is determined by the code scanning suite for a target language.
 You can create your own code scanning suite to change the set of included queries.
 
 By creating our own code scanning suite, we can exclude the rule that caused the false positive in our Java project.
@@ -409,7 +408,7 @@ from: codeql-go
 
 One of the strong suites of CodeQL is its high-level language QL that can be used to write your own queries.
 _If you have experience with CodeQL and have come up with your own query so far, take this time to commit those changes and see if any alerts were produced._ 
-Regardless of experiencem, the next steps show you how to add one.
+Regardless of experience, the next steps show you how to add one.
 
 1. Create the file `custom-queries/go/qlpack.yml` with the contents
 
