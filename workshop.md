@@ -19,17 +19,14 @@
   - [Viewing and managing results](#viewing-and-managing-results-1)
   - [Enabling Dependabot security updates](#enabling-dependabot-security-updates)
   - [Configuring Dependabot security updates](#configuring-dependabot-security-updates)
-  - [Automating Dependabot](#automating-dependabot)
 - [Code scanning](#code-scanning)
   - [Enabling code-scanning](#enabling-code-scanning)
   - [Reviewing a failed analysis job](#reviewing-a-failed-analysis-job)
   - [Customizing the build process in the CodeQL workflow](#customizing-the-build-process-in-the-codeql-workflow)
   - [Reviewing and managing results](#reviewing-and-managing-results)
   - [Triaging a result in a PR](#triaging-a-result-in-a-pr)
-  - [Customizing CodeQL](#customizing-codeql)
+  - [Customizing CodeQL configuration](#customizing-codeql-configuration)
   - [Adding your own code scanning suite to exclude rules](#adding-your-own-code-scanning-suite-to-exclude-rules)
-  - [Adding a custom query](#adding-a-custom-query)
-  - [Code scanning automation](#code-scanning-automation)
 
 ## Requirements and setup instructions
 
@@ -58,7 +55,9 @@ If you get stuck, try searching our documentation for help and ideas. Below are 
 
 ## Secret scanning
 
-### _Practical Exercise 1a: Enabling secret scanning_
+### _**Practical Exercise 1a**_
+
+#### Enabling secret scanning
 Secret scanning can be enabled in the settings of an organization or a repository.
 
 1. Go to the repository settings and enable secret scanning in the *Security & analysis* section.
@@ -123,7 +122,9 @@ Access to other members and teams can be given in the `Security & analysis` sett
 1. To enable this functionality we have to enable Dependabot alerts.
 1. In the access to alerts section add another team member or team to provide access to your repository alerts.
 
-## _Practical Exercise 1b: Dependabot_
+## Dependabot
+
+### _**Practical Exercise 1b**_ 
 
 #### Enabling Dependabot alerts
 Dependabot can be enabled in the settings of an organization or a repository.
@@ -217,7 +218,9 @@ updates:
 
 Code scanning enables developers to integrate security analysis tooling into their developing workflow. In this workshop we will focus on the CodeQL static analysis tooling provided by GitHub that helps developers detect common vulnerabilities and coding errors.
 
-### _Practical Exercise 2: Enabling Code scanning_
+### _**Practical Exercise 2**_ 
+
+#### Enabling code scanning
 
 1. Go to the `Code scanning alerts` section in the `Security` tab.
 1. Start the `Set up this workflow` step in the `CodeQL Analysis` card.
@@ -293,7 +296,7 @@ Following the next steps to see it in action.
     ```
 1. Is the vulnerability detected in your PR?
 
-#### _Stretch Exercise 2: Using context and expressions to modify build_
+#### _Stretch Exercise 1: Using context and expressions to modify build_
 
 How would you [modify](https://docs.github.com/en/free-pro-team@latest/actions/reference/context-and-expression-syntax-for-github-actions) the build such that the Setup JDK step runs only for Java?
 
@@ -310,15 +313,17 @@ How would you [modify](https://docs.github.com/en/free-pro-team@latest/actions/r
   ```
   </details>
 
-#### _Stretch Exercise 3: Fixing False Positive Results_
+#### _Stretch Exercise 2: Fixing False Positive Results_
 
 If you have identified a false positive how would you deal with that? What if this is a common pattern within your applications?
 
-#### _Stretch Exercise 4: Enabling code scanning on your own repository_
+#### _Stretch Exercise 3: Enabling code scanning on your own repository_
 
 So far you've learned how to enable secret scanning, Dependabot and code scanning. Try enabling this on your own repository and see what kind of results you get!
 
-### _Practical Exercise 3: Customizing CodeQL Configuration_
+### _**Practical Exercise 3**_ 
+
+#### Customizing CodeQL Configuration
 
 By default CodeQL uses a selection of queries that provide high quality security results.
 However, you might want to change this behavior to:
@@ -400,7 +405,7 @@ from: codeql-go
 
 5. Try specifying directories to scan or not to scan. Why would you include this in the configuration?
 
-#### _Stretch Exercise 5: Adding a custom query_
+#### _Stretch Exercise 4: Adding a custom query_
 
 One of the strong suites of CodeQL is its high-level language QL that can be used to write your own queries.
 _If you have experience with CodeQL and have come up with your own query so far, take this time to commit those changes and see if any alerts were produced._ 
@@ -461,8 +466,126 @@ Regardless of experiencem, the next steps show you how to add one.
 1. After the code scanning action has completed are there new security results?
 
 
-## References
-- GraphQL links
-- Code scanning API link
-  Like Dependabot our code scanning has a REST api that can be used to retrieve information or modify existing information.
-  Explorer the options at https://docs.github.com/en/free-pro-team@latest/rest/reference/code-scanning.
+## Additional References
+
+### Code scanning API 
+Code scanning has a REST api that can be used to retrieve information or modify existing information. Explore the options [here](https://docs.github.com/en/free-pro-team@latest/rest/reference/code-scanning).
+  
+### Automating Dependabot
+
+For the Dependabot service we have both REST and GraphQL endpoints that allow us to configure aspects and retrieve information.
+This can both be used for managing individual repositories at scale or export vulnerability information into other systems used to manage this information in your organization.
+
+**Note** The REST API signals a `404` when you client isn't properly authenticated to limit disclosure of private repositories as outlined [here](https://docs.github.com/en/free-pro-team@latest/rest/overview/troubleshooting#why-am-i-getting-a-404-error-on-a-repository-that-exists). This is the same status code that is returned if features are not enabled.
+
+1. Start by creating a *Personal Access Token* with the `repo` scope and store it for use (e.g., in a Postman environment variable).
+1. For your repo, determine if vulnerability alerts are enabled.
+
+   **Hints** 
+   - [Check if vulnerability alerts are enabled for a repository](https://docs.github.com/en/free-pro-team@latest/rest/reference/repos#check-if-vulnerability-alerts-are-enabled-for-a-repository
+   )
+   - Since this API is currently available for developers preview we need to use the header `Accept: application/vnd.github.dorian-preview+json`
+1. Disable and Enable security updates
+
+   **Hints**
+   - [Enable automated security fixes](https://docs.github.com/en/free-pro-team@latest/rest/reference/repos#enable-automated-security-fixes)
+
+<details>
+<summary>Solutions</summary>
+
+1. Determining if vulnerability alerts are enabled
+
+    ```bash
+    curl --location --request GET 'https://api.github.com/repos/advanced-security/<insert your repo>/vulnerability-alerts' \
+    --header 'Accept: application/vnd.github.dorian-preview+json' \
+    --header 'Authorization: Bearer <insert your PAT>'
+    ```
+1. Disabling and enable security updates
+
+    ```bash
+    curl --location --request DELETE 'https://api.github.com/repos/advanced-security/<insert your repo>/vulnerability-alerts' \
+    --header 'Accept: application/vnd.github.dorian-preview+json' \
+    --header 'Authorization: Bearer <insert your PAT>'
+
+    curl --location --request PUT 'https://api.github.com/repos/advanced-security/<insert your repo>/vulnerability-alerts' \
+    --header 'Accept: application/vnd.github.dorian-preview+json' \
+    --header 'Authorization: Bearer <insert your PAT>'
+    ```
+</details>
+
+Next we are going to use the GraphQL API to retrieve information on vulnerable dependencies in our repository.
+
+1. Retrieve the `securityVulnerability` objects for your repository.
+   
+   If you receive the response, then you need to add the scope `read:org` to your *Personal Access Token*.
+
+   ```json
+    {
+        "data": {
+            "viewer": {
+                "organization": null
+            }
+        }
+    }
+   ```
+   **Hints**
+   1. GraphQL is introspective, you can query an object's schema with
+      
+        ```graphql
+        query {
+            __type(name: "SecurityVulnerability") {
+                name
+                kind
+                description
+                fields {
+                    name
+                }
+            }
+        }
+        ```
+   1. A [SecurityVulnerability](https://docs.github.com/en/free-pro-team@latest/graphql/reference/objects#securityvulnerability) object can be accessed via the [RepositoryVulnerabilityAlert](https://docs.github.com/en/free-pro-team@latest/graphql/reference/objects#repositoryvulnerabilityalert) object in a [Repository](https://docs.github.com/en/free-pro-team@latest/graphql/reference/objects#repository) object, which itself resides in an [Organization](https://docs.github.com/en/free-pro-team@latest/graphql/reference/objects#organization) object.
+
+
+<details>
+<summary>Solution</summary>
+
+```graphql
+query VulnerabilityAlerts($org: String!, $repo: String!){
+  viewer {
+    organization(login: $org) {
+      repository(name: $repo) {
+        name
+        vulnerabilityAlerts(first: 10) {
+          nodes {
+            securityVulnerability {
+              advisory {
+                ghsaId
+                description
+              }
+              package {
+                name
+                ecosystem
+              }
+              severity
+              firstPatchedVersion {
+                identifier
+              }
+              vulnerableVersionRange
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+```bash
+curl --location --request POST 'https://api.github.com/graphql' \
+--header 'Authorization: Bearer <insert your PAT>' \
+--header 'Content-Type: application/json' \
+--data-raw '{"query":"query VulnerabilityAlerts($org: String!, $repo: String!){\n  viewer {\n    organization(login: $org) {\n      repository(name: $repo) {\n        name\n        vulnerabilityAlerts(first: 10) {\n          nodes {\n            securityVulnerability {\n              advisory {\n                ghsaId\n                description\n              }\n              package {\n                name\n                ecosystem\n              }\n              severity\n              firstPatchedVersion {\n                identifier\n              }\n              vulnerableVersionRange\n            }\n          }\n        }\n      }\n    }\n  }\n}","variables":{"org":"advanced-security","repo":"<insert your repo>"}}'
+```
+
+</details>
+
