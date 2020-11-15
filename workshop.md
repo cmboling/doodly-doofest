@@ -78,14 +78,14 @@ When developing test cases it might be the case that secrets are introduced that
         aws.accessKeyId=AKIAIOWARUV5O6PE6FKD
         aws.secretKey=C+lTMWVF0=Uk1zrN4iWPBQSzs4NRgn0lMfTpFLqw
         ```
-1. Determine if the secret is detected when the file is stored.
-1. How would you like to manage results from test files?
+2. Determine if the secret is detected when the file is stored.
+3. How would you like to manage results from test files?
 
 #### Excluding files from secret scanning
 While we can close a detected secret as being used in a test we can also configure secret scanning to exclude files from being scanned.
 
 1. Create the file `.github/secret_scanning.yml` if it doesn't already exist.
-1. Add a list of paths to exclude from secret scanning. You can use [filter patterns](https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-syntax-for-github-actions#filter-pattern-cheat-sheet) to specify paths.
+2. Add a list of paths to exclude from secret scanning. You can use [filter patterns](https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-syntax-for-github-actions#filter-pattern-cheat-sheet) to specify paths.
     ```yaml
     paths-ignore:
         - '**/test'
@@ -120,7 +120,7 @@ Access to other members and teams can be given in the `Security & analysis` sett
 **Note:** The member or teams requires write privileges before access to alerts can be given.
 
 1. To enable this functionality we have to enable Dependabot alerts.
-1. In the access to alerts section add another team member or team to provide access to your repository alerts.
+2. In the access to alerts section add another team member or team to provide access to your repository alerts.
 
 ## Dependabot
 
@@ -152,8 +152,8 @@ After a few minutes the security tab will in the repository will indicate that t
 
 For each Dependency alert we have the option to create a scurity update or to dismiss the alert with a reason.
 
-1. For one of the alerts create a Dependency security update. If Dependabot can update the dependency automatically it will create a PR.
-1. For one of the alerts dimiss the alert.
+2. For one of the alerts create a Dependency security update. If Dependabot can update the dependency automatically it will create a PR.
+3. For one of the alerts dimiss the alert.
 
 #### Enabling Dependabot security updates
 
@@ -173,12 +173,12 @@ To successfully integrate the security updates into the SDLC it is possible to c
 - Specify which dependency are updated and how they are updated.
 
 1. Create the file `.github/dependabot.yml` in your repository and configure the `pip` dependency manager to.
-1. Look for dependency information in the directory `authn-service`.
-1. Schedule daily security updates.
-1. Prefix the commit message with the package manager `pip`.
-1. Assign the PR to yourself and a person from your workshop team as a reviewer.
-1. Add the custom label `triage-required` to enable filtering of the PRs (Make sure the label exists by adding it to `https://github.com/advanced-security/<your repo>/labels`).
-1. Verify your changes by adding a [vulnerable dependency](https://github.com/advisories?query=severity%3Ahigh+ecosystem%3Apip) to `auth-service/requirements.txt`
+2. Look for dependency information in the directory `authn-service`.
+3. Schedule daily security updates.
+4. Prefix the commit message with the package manager `pip`.
+5. Assign the PR to yourself and a person from your workshop team as a reviewer.
+6. Add the custom label `triage-required` to enable filtering of the PRs (Make sure the label exists by adding it to `https://github.com/advanced-security/<your repo>/labels`).
+7. Verify your changes by adding a [vulnerable dependency](https://github.com/advisories?query=severity%3Ahigh+ecosystem%3Apip) to `auth-service/requirements.txt`
 
     For example
     ```requirements.txt
@@ -187,10 +187,10 @@ To successfully integrate the security updates into the SDLC it is possible to c
     ```
 How would you know if the configuration cannot be satisfied?
 1. Add a non-existing label to the configuration.
-1. Trigger a new Dependabot security update by adding a vulnerable dependency to one of the projects
+2. Trigger a new Dependabot security update by adding a vulnerable dependency to one of the projects
 
    For example, we can add the dependency `django-two-factor-auth==1.11` to `auth-service/requirements.txt`
-1. Look at the created PR to determine if the configuration is satisfied.
+3. Look at the created PR to determine if the configuration is satisfied.
 
 <details>
 <summary>Solution</summary>
@@ -223,9 +223,9 @@ Code scanning enables developers to integrate security analysis tooling into the
 #### Enabling code scanning
 
 1. Go to the `Code scanning alerts` section in the `Security` tab.
-1. Start the `Set up this workflow` step in the `CodeQL Analysis` card.
-1. Review the created Action workflow and accept the default proposed workflow.
-1. Head over to the `Actions` tab to see the created workflow in action.
+2. Start the `Set up this workflow` step in the `CodeQL Analysis` card.
+3. Review the created Action workflow and accept the default proposed workflow.
+4. Head over to the `Actions` tab to see the created workflow in action.
 
 The action failed because the Java job failed.
 
@@ -236,7 +236,7 @@ CodeQL requires a build of compiled languages and an analysis job can fail if ou
 1. Head over to the failed Java job and try to determine the build failure.
 
    **Hint**: The project is build using Maven so we can search for `Failed to execute goal` in the `Autobuild` step.
-1. How would you resolve the build error to ensure the analysis can be performed?
+2. How would you resolve the build error to ensure the analysis can be performed?
 
 <details>
 <summary>Solution</summary>
@@ -252,10 +252,10 @@ Error: 1-05 14:30:13] [autobuild] [ERROR] Failed to execute goal org.apache.mave
 #### Customizing the build process in the CodeQL workflow
 
 1. Open the file `.github/workflows/codeql-analysis.yml` for editing in the GitHub repository explorer.
-1. Add an appropiate step to configure the Java JDK
+2. Add an appropiate step to configure the Java JDK
 
     **Hint**: Use the Action marketplace to find an action that can help you.
-1. Confirm that java analysis succeeds.
+3. Confirm that java analysis succeeds.
 
 <details>
 <summary>Solution</summary>
@@ -272,7 +272,7 @@ Add the following step before the `autobuild` step.
 #### Reviewing and managing results
 
 1. Go to the `Code scanning results` in the `Security` tab.
-1. For a result determine:
+2. For a result determine:
     1. The issue reported.
     1. The corresponding query id.
     1. Its `Common Weakness Enumeration` identifier.
@@ -294,7 +294,7 @@ Following the next steps to see it in action.
      + eval(this.code)    
      + if (this.hasCode && this.hasState) {
     ```
-1. Is the vulnerability detected in your PR?
+2. Is the vulnerability detected in your PR?
 
 #### _Stretch Exercise 1: Using context and expressions to modify build_
 
@@ -345,19 +345,20 @@ However, you might want to change this behavior to:
         queries:
             - uses: <insert your query suite>
         ```
-1. Enable your custom configuration in the code scanning workflow file `.github/codeql/codeql-config.yml`
+2. Enable your custom configuration in the code scanning workflow file `.github/codeql/codeql-config.yml`
 
     **Hints**
 
     1. The `init` action supports a `config-file` parameter to specify a configuration file.
-1. After the code scanning action has completed are there new code scanning results?
+
+3. After the code scanning action has completed, are there new code scanning results?
 
 #### Adding your own code scanning suite to exclude rules
 
-Which queries are execute is determine by the code scanning suite for a target language.
+Which queries are executed is determined by the code scanning suite for a target language.
 You can create your own code scanning suite to change the set of included queries.
 
-By creating our own code scanning suite we can exclude the rule that caused the false positive in our Java project.
+By creating our own code scanning suite, we can exclude the rule that caused the false positive in our Java project.
 
 1. Create the file `custom-queries/code-scanning.qls` with the contents
 
@@ -421,7 +422,8 @@ Regardless of experiencem, the next steps show you how to add one.
     ```
 
     This file creates a [QL query pack](https://help.semmle.com/codeql/codeql-cli/reference/qlpack-overview.html) used to organize query files and their dependencies.
-1. Create the file `custom-queries/go/jwt.ql` with the contents
+
+2. Create the file `custom-queries/go/jwt.ql` with the contents
 
     ```ql
     /**
@@ -460,20 +462,21 @@ Regardless of experiencem, the next steps show you how to add one.
         )
     select f, "This function should be using jwt.SigningMethodHMAC"
     ```
-1. Add the query to the CodeQL configuration file `.github/codeql/codeql-config.yml`
+3. Add the query to the CodeQL configuration file `.github/codeql/codeql-config.yml`
 
     **Hint** The `uses` key accepts repository relative paths.
-1. After the code scanning action has completed are there new security results?
+
+4. After the code scanning action has completed, are there new security results?
 
 
 ## Additional References
 
 ### Code scanning API 
-Code scanning has a REST api that can be used to retrieve information or modify existing information. Explore the options [here](https://docs.github.com/en/free-pro-team@latest/rest/reference/code-scanning).
+The code scanning REST API can be used to retrieve information or modify existing information. Explore the options [here](https://docs.github.com/en/free-pro-team@latest/rest/reference/code-scanning).
   
 ### Automating Dependabot
 
-For the Dependabot service we have both REST and GraphQL endpoints that allow us to configure aspects and retrieve information.
+For the Dependabot service, we have both REST and GraphQL endpoints that allow us to configure aspects and retrieve information.
 This can both be used for managing individual repositories at scale or export vulnerability information into other systems used to manage this information in your organization.
 
 **Note** The REST API signals a `404` when you client isn't properly authenticated to limit disclosure of private repositories as outlined [here](https://docs.github.com/en/free-pro-team@latest/rest/overview/troubleshooting#why-am-i-getting-a-404-error-on-a-repository-that-exists). This is the same status code that is returned if features are not enabled.
