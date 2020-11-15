@@ -1,7 +1,6 @@
 # Automating DevSecOps with GHAS Workshop  <!-- omit in toc -->
 
 - Discussed features: secret scanning, Dependabot, and code scanning
-- Assumed knowledge: GitHub Actions, git
 - Difficulty level: 200
 
 ## Contents  <!-- omit in toc -->
