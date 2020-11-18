@@ -44,7 +44,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		BearerAuthenticationFilter filter = new BearerAuthenticationFilter(authenticationManager(), this.antPattern);
 		filter.setAuthenticationSuccessHandler(jwtAuthenticationSuccessHandler);
 		http.cors().and()
-			 .csrf().disable()
 			 .authorizeRequests().antMatchers(this.antPattern).authenticated().and()
 			 .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
 			 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
